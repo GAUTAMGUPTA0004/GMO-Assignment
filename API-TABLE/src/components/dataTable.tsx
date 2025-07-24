@@ -115,7 +115,7 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
                      
             <DataTable 
                 value={articledata} 
-                selectionMode={rowClick ? "multiple" : null}
+                selectionMode={rowClick ? undefined :'multiple'}
                 selection={selectedarticle} 
                 onSelectionChange={(e: any) => setSelectedarticle(e.value as Article[])}
                 dataKey="id" 
