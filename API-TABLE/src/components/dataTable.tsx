@@ -121,6 +121,7 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
                 tableStyle={{ minWidth: '50rem' }}
             >
                 <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
+                
                 <Column 
                     header={actionHeaderTemplate}
                     headerStyle={{ width: '4rem', textAlign: 'center' }}
