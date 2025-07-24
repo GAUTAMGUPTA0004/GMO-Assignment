@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { DataTable} from 'primereact/datatable';
-import type { DataTableSelectionChangeEvent } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputSwitch } from 'primereact/inputswitch';
 import type { InputSwitchChangeEvent } from 'primereact/inputswitch';
@@ -119,7 +118,7 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
                 value={articledata} 
                 selectionMode={rowClick ? null :"multiple"}
                 selection={selectedarticle} 
-                onSelectionChange={(e: DataTableSelectionChangeEvent<Article[]>) =>{setSelectedarticle(e.value);}}
+                onSelectionChange={(e: any) =>{setSelectedarticle(e.value);}}
                 dataKey="id" 
                 tableStyle={{ minWidth: '50rem' }}
             >
