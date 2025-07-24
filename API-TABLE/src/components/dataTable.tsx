@@ -19,7 +19,7 @@ interface Article {
 interface DataTableProps {
     articledata: Article[];
     currentPage: number;
-    }
+}
 
 export default function Datatable({ articledata, currentPage }: DataTableProps) {
     const [selectedarticle, setSelectedarticle] = useState<Article[] | null>(null);
@@ -63,14 +63,23 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
         return (
             <div className="flex justify-content-center">
                 <Button 
-                    icon="pi pi-check" aria-label="Filter" 
+                    icon="pi pi-check" 
+                    aria-label="Filter" 
                     className="p-button-text p-button-plain p-button-sm"
                     label="overlay panel"
                     style={{color: 'black'}} 
                     onClick={(e) => op.current?.toggle(e)} 
                 />
                 
-                <OverlayPanel style={{ padding: '1rem', backgroundColor: 'white', borderRadius: '6px', boxShadow: '0 2px 10px rgba(0,0,0,0.15)' }} ref={op}>
+                <OverlayPanel 
+                    style={{ 
+                        padding: '1rem', 
+                        backgroundColor: 'white', 
+                        borderRadius: '6px', 
+                        boxShadow: '0 2px 10px rgba(0,0,0,0.15)' 
+                    }} 
+                    ref={op}
+                >
                     <div className="p-2">
                         <InputText 
                             placeholder="Enter number of Rows" 
@@ -82,7 +91,7 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
                         <br />
                         <Button 
                             label="Submit"
-                            style={{backgroundColor: 'black' }} 
+                            style={{backgroundColor: 'black'}} 
                             className="p-button-sm" 
                             onClick={handleRowSelection}
                         />
@@ -95,19 +104,22 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
     return (
         <div className="card">
             <div className="flex justify-content-center align-items-center mb-4 gap-2">
-                <InputSwitch inputId="input-rowclick" checked={rowClick} onChange={(e) => setRowClick(e.value)} />
+                <InputSwitch 
+                    inputId="input-rowclick" 
+                    checked={rowClick} 
+                    onChange={(e: { value: boolean }) => setRowClick(e.value)} 
+                />
                 <label htmlFor="input-rowclick">Row Click</label>
             </div>
                      
             <DataTable 
                 value={articledata} 
-                selectionMode={rowClick ? null : 'checkbox'} 
-                selection={selectedarticle} 
-                onSelectionChange={(e) => setSelectedarticle(e.value)} 
+                selectionMode="multiple"
+                selection={selectedarticle || []} 
+                onSelectionChange={(e: any) => setSelectedarticle(e.value as Article[])}
                 dataKey="id" 
                 tableStyle={{ minWidth: '50rem' }}
             >
-                <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
                 <Column 
                     header={actionHeaderTemplate}
                     headerStyle={{ width: '4rem', textAlign: 'center' }}
