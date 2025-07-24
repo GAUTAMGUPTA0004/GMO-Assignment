@@ -22,7 +22,8 @@ interface DataTableProps {
 }
 
 export default function Datatable({ articledata, currentPage }: DataTableProps) {
-    const [selectedarticle, setSelectedarticle] = useState<Article[] | null>(null);
+    // Initialize as empty array instead of null
+    const [selectedarticle, setSelectedarticle] = useState<Article[]>([]);
     const [rowClick, setRowClick] = useState<boolean>(true);
     const [rowInput, setRowInput] = useState<string>('');
     const op = useRef<OverlayPanel>(null);
@@ -115,24 +116,27 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
             <DataTable 
                 value={articledata} 
                 selectionMode={rowClick ? "multiple" : null}
-                selection={selectedarticle||[]} 
+                selection={selectedarticle} 
                 onSelectionChange={(e: any) => setSelectedarticle(e.value as Article[])}
                 dataKey="id" 
                 tableStyle={{ minWidth: '50rem' }}
             >
-                <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
+                <Column 
+                    selectionMode="multiple" 
+                    headerStyle={{ width: '3rem' }}
+                />
                 
                 <Column 
                     header={actionHeaderTemplate}
                     headerStyle={{ width: '4rem', textAlign: 'center' }}
                     bodyStyle={{ textAlign: 'center' }}
                 />
-                <Column field="title" header="Title"></Column>
-                <Column field="place_of_origin" header="Place of Origin"></Column> 
-                <Column field="artist_display" header="Artist"></Column> 
-                <Column field="inscriptions" header="Inscriptions"></Column> 
-                <Column field="date_start" header="Start Date"></Column> 
-                <Column field="date_end" header="End Date"></Column>
+                <Column field="title" header="Title" />
+                <Column field="place_of_origin" header="Place of Origin" /> 
+                <Column field="artist_display" header="Artist" /> 
+                <Column field="inscriptions" header="Inscriptions" /> 
+                <Column field="date_start" header="Start Date" /> 
+                <Column field="date_end" header="End Date" />
             </DataTable>
         </div>
     );
