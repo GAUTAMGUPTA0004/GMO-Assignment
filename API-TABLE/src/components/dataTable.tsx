@@ -114,8 +114,8 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
                      
             <DataTable 
                 value={articledata} 
-                selectionMode="multiple"
-                selection={selectedarticle || []} 
+                selectionMode={rowClick ? "multiple" : null}
+                selection={selectedarticle||[]} 
                 onSelectionChange={(e: any) => setSelectedarticle(e.value as Article[])}
                 dataKey="id" 
                 tableStyle={{ minWidth: '50rem' }}
