@@ -1,7 +1,9 @@
 import { useState, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
+import { DataTable} from 'primereact/datatable';
+import type { DataTableSelectionChangeEvent } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputSwitch } from 'primereact/inputswitch';
+import type { InputSwitchChangeEvent } from 'primereact/inputswitch';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -108,21 +110,21 @@ export default function Datatable({ articledata, currentPage }: DataTableProps) 
                 <InputSwitch 
                     inputId="input-rowclick" 
                     checked={rowClick} 
-                    onChange={(e: { value: boolean }) => setRowClick(e.value)} 
+                    onChange={(e: InputSwitchChangeEvent) => setRowClick(e.value ?? false)}
                 />
                 <label htmlFor="input-rowclick">Row Click</label>
             </div>
                      
             <DataTable 
                 value={articledata} 
-                selectionMode={rowClick ? undefined :'multiple'}
+                selectionMode={rowClick ? null :"multiple"}
                 selection={selectedarticle} 
-                onSelectionChange={(e: any) => setSelectedarticle(e.value as Article[])}
+                onSelectionChange={(e: DataTableSelectionChangeEvent<Article[]>) =>{setSelectedarticle(e.value);}}
                 dataKey="id" 
                 tableStyle={{ minWidth: '50rem' }}
             >
                 <Column 
-                    selectionMode="multiple" 
+                    selectionMode={rowClick ? undefined : 'multiple'}
                     headerStyle={{ width: '3rem' }}
                 />
                 
